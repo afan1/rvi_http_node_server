@@ -1,0 +1,141 @@
+{
+  "36ab27d0-fd9d-4455-823a-ce30af709ffc": {
+    "/vehicles/{id}": {
+      "id": "36ab27d0-fd9d-4455-823a-ce30af709ffc",
+      "make": "TESLA",
+      "model": "Model S",
+      "year": 2014
+    },
+    "/vehicles/{id}/accelerometer": {
+      "x": 12.2,
+      "y": 3.08,
+      "z": 5.83
+    },
+    "/vehicles/{id}/airbags": {
+      "airbags": [
+        {
+          "location": "FRONT_LEFT",
+          "type": "FRONTAL",
+          "isActive": true,
+          "isDeployed": false
+        },
+        {
+          "location": "FRONT_RIGHT",
+          "type": "SIDE",
+          "isActive": false,
+          "isDeployed": true
+        }
+      ]
+    },
+    "/vehicles/{id}/barometer": {
+      "pressure": 97.71
+    },
+    "/vehicles/{id}/climate": {
+      "temperature": 35.3,
+      "isOn": true
+    },
+    "/vehicles/{id}/collision_sensor": {
+      "isTriggered": false
+    },
+    "/vehicles/{id}/engine": {
+      "state": "ACCESSORY_2"
+    },
+    "/vehicles/{id}/engine/hood": {
+      "isOpen": false
+    },
+    "/vehicles/{id}/fuel": {
+      "range": 40.5,
+      "percentRemaining": 0.3
+    },
+    "/vehicles/{id}/location": {
+      "latitude": 37.4292,
+      "longitude": 122.1381,
+      "accuracy": 10.2
+    },
+    "/vehicles/{id}/odometer": {
+      "distance": 104.32
+    },
+    "/vehicles/{id}/odometer/trips": {
+      "trips": [
+        {
+          "label": "a",
+          "distance": 32.11
+        }
+      ]
+    },
+    "/vehicles/{id}/rain_sensor": {
+      "isRaining": true
+    },
+    "/vehicles/{id}/seats": {
+      "seats": [
+        {
+          "location": "FRONT_RIGHT",
+          "isOccupied": true,
+          "isBuckled": true
+        },
+        {
+          "location": "FRONT_LEFT",
+          "isOccupied": false,
+          "isBuckled": false
+        }
+      ]
+    },
+    "/vehicles/{id}/themistors/exterior": {
+      "temperature": 35.3
+    },
+    "/vehicles/{id}/themistors/interior": {
+      "temperature": 35.3
+    },
+    "/vehicles/{id}/tires": {
+      "tires": [
+        {
+          "location": "FRONT_RIGHT",
+          "pressure": 220.4
+        },
+        {
+          "location": "FRONT_LEFT",
+          "pressure": 219.3
+        },
+        {
+          "location": "BACK_RIGHT",
+          "pressure": 221.5
+        },
+        {
+          "location": "BACK_LEFT",
+          "pressure": 215
+        }
+      ]
+    },
+    "/vehicles/{id}/transmission": {
+      "type": "AUTOMATIC",
+      "state": "PARK"
+    },
+    "/vehicles/{id}/vin": {
+      "vin": "1234A67Q90F2T4567"
+    },
+    "/vehicles/{id}/windows": {
+      "windows": [
+        {
+          "location": "FRONT_RIGHT",
+          "isLocked": true,
+          "percentOpen": 0.0
+        },
+        {
+          "location": "BACK_RIGHT",
+          "isLocked": false,
+          "percentOpen": 0.34
+        },
+        {
+          "location": "FRONT_LEFT",
+          "isLocked": false,
+          "percentOpen": 0.0
+        },
+        {
+          "location": "BACK_LEFT",
+          "isLocked": false,
+          "percentOpen": 0.0
+        }
+      ]
+    }
+  }
+}
