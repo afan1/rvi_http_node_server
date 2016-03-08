@@ -1,0 +1,47 @@
+{
+  "name": "rvi-http-node-server",
+  "version": "0.0.1",
+  "description": "Node.js implementation of the RVI HTTP API Spec",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "mocha --ui=tdd --recursive",
+    "cover": "istanbul cover _mocha -- --ui=tdd --recursive",
+    "lint": "jshint . --reporter=node_modules/jshint-reporter-jscs || exit 0",
+    "style": "jscs . || exit 0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/smartcar/rvi_http_node_server.git"
+  },
+  "homepage": "https://github.com/smartcar/rvi_http_node_server",
+  "keywords": [
+    "rvi"
+  ],
+  "author": {
+    "name": "Smartcar",
+    "email": "hello@smartcar.com",
+    "url": "https://smartcar.com"
+  },
+  "license": "MPL-2.0",
+  "dependencies": {
+    "express": "^4.13.4",
+    "js-yaml": "^3.5.3",
+    "lodash": "^4.5.1",
+    "rvi-http-api-spec": "0.0.1",
+    "swagger-tools": "^0.10.1"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "coveralls": "^2.11.6",
+    "dirty-chai": "^1.2.2",
+    "istanbul": "^0.4.2",
+    "jscs": "^2.10.1",
+    "jshint": "^2.9.1",
+    "jshint-reporter-jscs": "^0.1.0",
+    "mocha": "^2.4.5",
+    "sinon": "^1.17.3",
+    "sinon-chai": "^2.8.0",
+    "validator": "^5.0.0"
+  }
+}
