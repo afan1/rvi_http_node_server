@@ -1,4 +1,4 @@
-# RVI HTTP Node.js Server
+# RVI HTTP Node.js Server [![Build Status](https://travis-ci.org/smartcar/rvi_http_node_server.svg?branch=master)](https://travis-ci.org/smartcar/rvi_http_node_server)
 
 A Node.js HTTP layer on top of an [RVI](https://github.com/PDXostc/rvi_core)
 node. The API spec and schema can be found
