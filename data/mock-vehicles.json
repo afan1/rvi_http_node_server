@@ -117,23 +117,39 @@
       "windows": [
         {
           "location": "FRONT_RIGHT",
-          "isLocked": true,
           "percentOpen": 0.0
         },
         {
           "location": "BACK_RIGHT",
-          "isLocked": false,
           "percentOpen": 0.34
         },
         {
           "location": "FRONT_LEFT",
-          "isLocked": false,
           "percentOpen": 0.0
         },
         {
           "location": "BACK_LEFT",
-          "isLocked": false,
           "percentOpen": 0.0
+        }
+      ]
+    },
+    "/vehicles/{id}/windows/locks": {
+      "windows": [
+        {
+          "location": "FRONT_RIGHT",
+          "isLocked": true
+        },
+        {
+          "location": "BACK_RIGHT",
+          "isLocked": false
+        },
+        {
+          "location": "FRONT_LEFT",
+          "isLocked": false
+        },
+        {
+          "location": "BACK_LEFT",
+          "isLocked": false
         }
       ]
     }

@@ -13,11 +13,3 @@ node_js:
 after_script:
   - npm run cover
   - cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
-
-deploy:
-  on:
-    branch: master
-    node: stable
-  provider: npm
-  email: hello@smartcar.com
-  api_key: $NPM_API_TOKEN
