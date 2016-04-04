@@ -8,6 +8,7 @@ var yaml = require('js-yaml');
 var path = require('path');
 
 var authMiddlewares = require('./middleware/auth');
+var rvi = require('./middleware/rvi');
 var mockVehiclesMiddlewares = require('./middleware/mock_vehicles');
 var errorHandlerMiddlewares = require('./middleware/error_handlers');
 
@@ -41,6 +42,9 @@ swagger.initializeMiddleware(swaggerSchemaObject, function(middleware) {
   // Mock vehicle middlewares
   app.get('/*', mockVehiclesMiddlewares.getVehicleDataMiddleware);
   app.post('/*', mockVehiclesMiddlewares.postVehicleActionsMiddleware);
+
+  rvi.registerEndpoints(swaggerSchemaObject);
+  app.use(rvi.rviMiddleware);
 
   // Default middlewares
   app.use(errorHandlerMiddlewares.defaultMiddleware);

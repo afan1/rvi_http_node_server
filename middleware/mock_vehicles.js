@@ -2,6 +2,7 @@
 
 var _ = require('lodash');
 var errors = require('../lib/errors');
+var swaggerHelpers = require('../lib/swagger_helpers');
 var mockVehicles = require('../data/mock-vehicles');
 
 var exports = {};
@@ -13,14 +14,12 @@ var exports = {};
  * middleware.
  *
  * @param {Object} req HTTP request object
- * @param {String} req.swagger.apiPath Swagger schema endpoint
- * @param {String} req.swagger.params.id.value vehicle ID from the URL params
  * @param {Object} res HTTP response object
  * @param {Function} next callback to invoke the next middleware in the stack
  */
 exports.getVehicleDataMiddleware = function(req, res, next) {
-  var path = _.get(req, 'swagger.apiPath');
-  var id = _.get(req, 'swagger.params.id.value');
+  var path = swaggerHelpers.getPath(req);
+  var id = swaggerHelpers.getVehicleId(req);
 
   if (!_.includes(req.vehicles, id)) {
     return next(
@@ -40,12 +39,11 @@ exports.getVehicleDataMiddleware = function(req, res, next) {
  * success message. This also depends on the Swagger metadata middleware.
  *
  * @param {Object} req HTTP request object
- * @param {String} req.swagger.params.id.value vehicle ID from the URL params
  * @param {Object} res HTTP response object
  * @param {Function} next callback to invoke the next middleware in the stack
  */
 exports.postVehicleActionsMiddleware = function(req, res, next) {
-  var id = _.get(req, 'swagger.params.id.value');
+  var id = swaggerHelpers.getVehicleId(req);
 
   if (!_.includes(req.vehicles, id)) {
     return next(
