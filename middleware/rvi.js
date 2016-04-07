@@ -2,13 +2,19 @@
 
 var _ = require('lodash');
 var errors = require('../lib/errors');
-var swaggerHelpers = require('../lib/swagger_helpers');
 var uuid = require('uuid');
 var RVI = require('rvi');
 
+var swaggerHelpers = require('../lib/swagger_helpers');
+var swaggerSchemaObject = swaggerHelpers.getSchema();
+
+var VEHICLE_HOST = process.env.VEHICLE_RVI_HOST || 'genivi.org';
+
 var HOST = process.env.RVI_HOST || 'localhost';
 var PORT = process.env.RVI_PORT || '5000';
-var rvi = new RVI(HOST + ':' + PORT);
+
+// Server RVI node. Initialization happens further down
+var rvi;
 
 // RVI request timeout in milliseconds
 var TIMEOUT = 30000;
@@ -34,11 +40,9 @@ var popPendingRequest = function(transactionId) {
 
 /**
  * Registers all non-authentication endpoints with the RVI client.
- *
- * @param {Object} schema a full Swagger schema object
  */
-exports.registerEndpoints = function(schema) {
-  _(schema.paths)
+var registerEndpoints = function() {
+  _(swaggerSchemaObject.paths)
     .keys()
     .forEach(function(endpoint) {
       // Extract only the relative portion of the endpoint path
@@ -47,9 +51,9 @@ exports.registerEndpoints = function(schema) {
       // If a replacement occurred then the endpoint is a non-authentication
       // related endpoint
       if (rviEndpoint !== endpoint) {
-        rvi.registerService(rviEndpoint, function(paramters) {
-          var transactionId = _.get(paramters, 'transactionId');
-          var data = _.get(paramters, 'data');
+        rvi.registerService(rviEndpoint, function(parameters) {
+          var transactionId = _.get(parameters, 'transactionId');
+          var data = _.get(parameters, 'data');
 
           // Remove the pending request from the queue and send back a valid
           // response; otherwise consider this a noop
@@ -61,6 +65,11 @@ exports.registerEndpoints = function(schema) {
       }
     });
 };
+
+// Initialize the server RVI node
+rvi = new RVI(HOST + ':' + PORT, {
+  onReady: registerEndpoints,
+});
 
 /**
  * Handles all RVI client requests. Uses a message queue like system to handle
@@ -74,6 +83,9 @@ exports.rviMiddleware = function(req, res, next) {
   var path = swaggerHelpers.getPath(req);
   var vehicleId = swaggerHelpers.getVehicleId(req);
 
+  // Add a trailing '/' to the '/vehicles/{id}' endpoint
+  path = path.replace(/\/vehicles\/{id}\/?/, '/vehicles/{id}/');
+
   // Resolve the ID placeholder with the actual vehicle ID
   path = path.replace(/{id}/, vehicleId);
 
@@ -83,7 +95,7 @@ exports.rviMiddleware = function(req, res, next) {
   PENDING[transactionId] = res;
 
   // Send an async call to the RVI client
-  rvi.callService('genivi.org' + path, {
+  rvi.callService(VEHICLE_HOST + path, {
     transactionId: transactionId,
     data: req.body,
   });

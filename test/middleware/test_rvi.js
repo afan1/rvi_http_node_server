@@ -87,15 +87,18 @@ suite('RVI Middleware', function() {
       var schema = {};
       _.set(schema, 'paths./vehicles/{id}', null);
       _.set(schema, 'paths./vehicles/{id}/foo/bar/baz', null);
+      rvi.__set__('swaggerSchemaObject', schema);
 
-      rvi.registerEndpoints(schema);
+      rvi.__get__('registerEndpoints')();
 
       expect(registeredEndpoints).to.have.all.keys([ '/', '/foo/bar/baz' ]);
     });
 
     test('Register invalid endpoint', function() {
       var schema = _.set({}, 'paths./vehicles', null);
-      rvi.registerEndpoints(schema);
+      rvi.__set__('swaggerSchemaObject', schema);
+
+      rvi.__get__('registerEndpoints')();
       expect(registeredEndpoints).to.be.empty();
     });
 
@@ -103,7 +106,9 @@ suite('RVI Middleware', function() {
       pendingRequests.validId = res;
 
       var schema = _.set({}, 'paths./vehicles/{id}/foo/bar');
-      rvi.registerEndpoints(schema);
+      rvi.__set__('swaggerSchemaObject', schema);
+
+      rvi.__get__('registerEndpoints')();
 
       registeredEndpoints['/foo/bar']({
         transactionId: 'INVALID ID',
@@ -118,7 +123,9 @@ suite('RVI Middleware', function() {
       pendingRequests.validId = res;
 
       var schema = _.set({}, 'paths./vehicles/{id}/foo/bar');
-      rvi.registerEndpoints(schema);
+      rvi.__set__('swaggerSchemaObject', schema);
+
+      rvi.__get__('registerEndpoints')();
 
       registeredEndpoints['/foo/bar']({
         transactionId: 'validId',
@@ -133,7 +140,9 @@ suite('RVI Middleware', function() {
       pendingRequests.validId = res;
 
       var schema = _.set({}, 'paths./vehicles/{id}/foo/bar');
-      rvi.registerEndpoints(schema);
+      rvi.__set__('swaggerSchemaObject', schema);
+
+      rvi.__get__('registerEndpoints')();
 
       registeredEndpoints['/foo/bar']({
         transactionId: 'validId',
@@ -169,7 +178,9 @@ suite('RVI Middleware', function() {
 
     test('Successful RVI response', function(done) {
       var schema = _.set({}, 'paths./vehicles/{id}/foo/bar');
-      rvi.registerEndpoints(schema);
+      rvi.__set__('swaggerSchemaObject', schema);
+
+      rvi.__get__('registerEndpoints')();
 
       _.set(req, 'swagger.apiPath', '/vehicles/{id}/foo/bar');
       _.set(req, 'swagger.params.id.value', '123');

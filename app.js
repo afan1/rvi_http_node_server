@@ -3,10 +3,6 @@
 // This enables logging from Swagger
 process.env.DEBUG = 'swagger-tools:middleware:*';
 
-var fs = require('fs');
-var yaml = require('js-yaml');
-var path = require('path');
-
 var authMiddlewares = require('./middleware/auth');
 var rvi = require('./middleware/rvi');
 var mockVehiclesMiddlewares = require('./middleware/mock_vehicles');
@@ -16,9 +12,8 @@ var swagger = require('swagger-tools');
 var express = require('express');
 var app = express();
 
-var swaggerSchemaPath = path.join(__dirname,
-  'node_modules/rvi-http-api-spec/swagger.yaml');
-var swaggerSchemaObject = yaml.load(fs.readFileSync(swaggerSchemaPath));
+var swaggerHelpers = require('./lib/swagger_helpers');
+var swaggerSchemaObject = swaggerHelpers.getSchema();
 
 var PORT = process.env.PORT || 8001;
 
@@ -43,7 +38,6 @@ swagger.initializeMiddleware(swaggerSchemaObject, function(middleware) {
   app.get('/*', mockVehiclesMiddlewares.getVehicleDataMiddleware);
   app.post('/*', mockVehiclesMiddlewares.postVehicleActionsMiddleware);
 
-  rvi.registerEndpoints(swaggerSchemaObject);
   app.use(rvi.rviMiddleware);
 
   // Default middlewares
