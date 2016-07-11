@@ -30,7 +30,7 @@
     "lodash": "^4.5.1",
     "rewire": "^2.5.1",
     "rvi": "0.0.6",
-    "rvi-http-api-spec": "0.0.4",
+    "rvi-http-api-spec": "0.0.5",
     "swagger-tools": "^0.10.1",
     "uuid": "^2.0.1"
   },
